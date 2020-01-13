@@ -24,12 +24,11 @@ class SignUp extends Component {
    render() {
     return(
         <form onSubmit={this.handleSubmit.bind(this)}>
-        <div>
-            Enter your email
             <h1>{this.state.email}</h1>
             <h1>{this.state.name}</h1>
             <h1>{this.state.lastName}</h1>
-
+        <div>
+            Enter your email
             <input value={this.state.email} onChange={this.updateField} type="email" name="email"/>
         </div>
         <div>
@@ -51,7 +50,6 @@ class SignUp extends Component {
             <input type="submit" value="Submit"/>
         </form>
             );
-
     }
 }
 

@@ -12,15 +12,15 @@ router.post('/signUp', function(req, res, next) {
                   lastname: req.body.lastname
     };
     var query = connection.query('INSERT INTO users SET ?', object, function (error, results, fields) {
-        if (error) throw error;
+
         // Neat!
 
-        if(error)
-            res.status(500).end();
-
-        res.end();
+        if (error)
+            res.status(500).json({ flash:  error.message });
+        else
+            res.status(200).json({ flash:  "User has been signed up!" });
     });
-    res.send('I am in POST signup');
+    // res.send('I am in POST signup');
 });
 
 

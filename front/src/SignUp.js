@@ -9,8 +9,10 @@ class SignUp extends Component {
             password: "",
             confPassword: "",
             name: "",
-            lastName: ""
+            lastName: "",
+            flash: ""
 };
+
             this.updateField = this.updateField.bind(this)
         }
     updateField(event) {
@@ -19,6 +21,19 @@ class SignUp extends Component {
     handleSubmit(event) {
         event.preventDefault()
         console.log(this.state)
+        fetch("/auth/signup",
+            {
+                method:  'POST',
+                headers:  new Headers({
+                    'Content-Type':  'application/json'
+                }),
+                body:  JSON.stringify(this.state),
+            })
+            .then(res  =>  res.json())
+            .then(
+                res  =>  this.setState({"flash":  res.flash}),
+                err  =>  this.setState({"flash":  err.flash})
+            )
     }
 
    render() {

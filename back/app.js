@@ -1,4 +1,4 @@
-const authRouter = require('./auth')
+const authRouter = require('./auth/auth')
 
 // declare all the necessary libraries
 const  http  =  require('http');
@@ -7,6 +7,9 @@ const  express  =  require('express');
 const  bodyParser  =  require('body-parser');
 const  morgan  =  require('morgan');
 const  app  =  express();
+
+//From now on, the database connector will be available from any file via:
+const connection = require('./helpers/db.js');
 
 // set up the application
 app.use(morgan('dev'));

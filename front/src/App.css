@@ -13,6 +13,19 @@
   }
 }
 
+.MuiFormControl-root.MuiTextField-root {
+  width: 70%;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedSecondary {
+  top: 35px;
+  left: 160px;
+}
+
+#root {
+  background-color: burlywood;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

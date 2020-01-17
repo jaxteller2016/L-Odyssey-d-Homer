@@ -3,6 +3,7 @@ import {TextField} from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+import { BrowserRouter, NavLink, Link, Route, Redirect, Switch } from 'react-router-dom';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -68,7 +69,7 @@ class SignUp extends Component {
             <TextField value={this.state.lastName} onChange={this.updateField} type="name" name="lastName" id="standard-basic" label="Last Name"/>
         </div>
         <div>
-            <Button type="submit" value="Submit" variant="contained" color="secondary">Submit</Button>
+            <Button type="submit" value="Submit" variant="contained" color="secondary" href="./">Submit</Button>
         </div>
         </form>
     <Snackbar open={this.state.flash} autoHideDuration={4000} >
@@ -76,6 +77,7 @@ class SignUp extends Component {
             {this.state.flash}
         </Alert>
     </Snackbar>
+    <NavLink to="/signin">Already have an account? Sign In!</NavLink>
 </div>
             );
     }

@@ -69,7 +69,7 @@ class SignUp extends Component {
             <TextField value={this.state.lastName} onChange={this.updateField} type="name" name="lastName" id="standard-basic" label="Last Name"/>
         </div>
         <div>
-            <Button type="submit" value="Submit" variant="contained" color="secondary" href="./">Submit</Button>
+            <Button type="submit" value="Submit" variant="contained" color="secondary">Submit</Button>
         </div>
         </form>
     <Snackbar open={this.state.flash} autoHideDuration={4000} >

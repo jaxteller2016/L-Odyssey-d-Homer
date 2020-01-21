@@ -3,15 +3,21 @@ const app = express();
 const port = 3000;
 const router = express.Router();
 const connection = require ('../helpers/db');
+const bcrypt = require('bcrypt');
+const  passport = require ('passport');
+const jwt = require('jsonwebtoken');
+
+// I am encrypting myPassword which becomes a 'hash'
+let hash = bcrypt.hashSync('myPassword', 10);
 
 router.post('/signUp', function(req, res, next) {
 
     var object = { email: req.body.email,
-                  password: req.body.password,
+                  password: bcrypt.hashSync(req.body.password, 10) ,
                   name: req.body.name,
                   lastname: req.body.lastname
     };
-    var query = connection.query('INSERT INTO users SET ?', object, function (error, results, fields) {
+    connection.query('INSERT INTO users SET ?', object, function (error, results, fields) {
 
         // Neat!
 
@@ -23,6 +29,15 @@ router.post('/signUp', function(req, res, next) {
     // res.send('I am in POST signup');
 });
 
+router.post('/signin', function(req, res) {
 
+    passport.authenticate('local',(err, user, info) =>
+    {
+        const token = jwt.sign({user}, 'your_jwt_secret');
+        if(err) return res.status(500).send(err)
+        if (!user) return res.status(400).json({message: info.message});
+        return res.json({user, token});
+    })(req, res)
+});
 
 module.exports = router;

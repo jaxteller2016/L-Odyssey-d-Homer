@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { BrowserRouter, NavLink, Link, Route, Redirect, Switch } from 'react-router-dom';
+import { connect } from  'react-redux';
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -20,6 +21,7 @@ class SignIn extends Component {
         };
         this.updateField = this.updateField.bind(this)
     }
+
     updateField(event) {
         this.setState({[event.target.name]: event.target.value})
     }
@@ -34,11 +36,21 @@ class SignIn extends Component {
                 }),
                 body:  JSON.stringify(this.state),
             })
-            .then(res  =>  res.json())
-            .then(
-                res  =>  this.setState({"flash":  res.flash}),
-                err  =>  this.setState({"flash":  err.flash})
-
+            .then(res  => {
+                if (res)
+                    return  res.json()
+                else
+                    throw  new  Error(res.statusText);
+            })
+            .then(res  => { this.props.dispatch(
+                {
+                    type : "CREATE_SESSION",
+                    user: res.user,
+                    token : res.token,
+                    message : res.message
+                }
+                )
+        this.props.history.replace("/")}
             )
     }
 
@@ -54,7 +66,7 @@ class SignIn extends Component {
                         <TextField value={this.state.password} onChange={this.updateField} type="password" name="password" id="standard-basic" label="Password"/>
                     </div>
                     <div>
-                        <Button type="submit" value="Submit" variant="contained" color="secondary" href="./profile">Login</Button>
+                        <Button type="submit" value="Submit" variant="contained" color="secondary" >Login</Button>
                     </div>
                 </form>
 
@@ -68,4 +80,9 @@ class SignIn extends Component {
         );
     }
 }
-export default SignIn;
+function mapStateToProps(state) {
+    return {
+        flash:  state.auth.token,
+    }
+};
+export  default  connect(mapStateToProps)(SignIn);

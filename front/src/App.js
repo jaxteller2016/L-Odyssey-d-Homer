@@ -9,6 +9,7 @@ import Profile from './containers/Profile';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import requireAuth from './hoc/requireAuth'
 import requireNotAuth from './hoc/requireNotAuth'
+import PopUp from "./containers/PopUp";
 
 class App extends React.Component {
     render() {
@@ -42,6 +43,7 @@ class App extends React.Component {
                                         <Route  exact  path="/signup"  component={requireNotAuth(SignUp)}  />
                                     </Switch>
                                 </BrowserRouter>
+                                <PopUp/>
                             </Grid>
                         </Grid>
                     </Paper>

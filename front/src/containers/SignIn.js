@@ -47,7 +47,7 @@ class SignIn extends Component {
                     type : "CREATE_SESSION",
                     user: res.user,
                     token : res.token,
-                    message : res.message
+                    message : res.flash
                 }
                 )
         this.props.history.replace("/")}

@@ -1,0 +1,34 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseNode@1
+  inputs:
+    version: 10.x
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.SourcesDirectory)/Users/sorin/Desktop/tester/Quests/L''Odyssey%20d''Homer/front/package.json'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/Users/sorin/Desktop/tester/Quests/L''Odyssey%20d''Homer/build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifact: 'Homer'
+    publishLocation: 'pipeline''
+    replaceExistingArchive: true

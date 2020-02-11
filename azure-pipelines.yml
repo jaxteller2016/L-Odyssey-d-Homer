@@ -16,19 +16,23 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '$(Build.SourcesDirectory)/Users/sorin/Desktop/tester/Quests/L''Odyssey%20d''Homer/front/package.json'
+    workingDir: '$(Build.SourcesDirectory)/front'
 - task: Npm@1
   inputs:
     command: 'custom'
     customCommand: 'run build'
+    workingDir: '$(Build.SourcesDirectory)/front'
+
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/Users/sorin/Desktop/tester/Quests/L''Odyssey%20d''Homer/build'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/front/build'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '- task: PublishPipelineArtifact@1
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    
+- task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     artifact: 'Homer'
-    publishLocation: 'pipeline''
-    replaceExistingArchive: true
+    publishLocation: 'pipeline'
+  
